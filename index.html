@@ -156,14 +156,53 @@ let answersSubmitted = []
 let correctQuestions = []
 let rightAnswer = 0
 let wrongAnswer = 0
+let nextQ = 0
+let rightAnswerRealTime = 0
+//let randomQuestions = [questions[nextQ].correct_answer, questions[nextQ].incorrect_answers[0], questions[nextQ].incorrect_answers[1], questions[nextQ].incorrect_answers[2]]
+let copyRandom = []
+
+function unordered(){
+  if (questions[nextQ].incorrect_answers[1] !== undefined){
+  copyRandom = [
+                questions[nextQ].correct_answer,
+                questions[nextQ].incorrect_answers[0], 
+                questions[nextQ].incorrect_answers[1], 
+                questions[nextQ].incorrect_answers[2]
+              ];
+  for (let i = copyRandom.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [copyRandom[i], copyRandom[j]] = [copyRandom[j], copyRandom[i]];
+  }
+}else{
+  copyRandom = [
+                questions[nextQ].correct_answer,
+                questions[nextQ].incorrect_answers[0]
+              ];
+  for (let i = copyRandom.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [copyRandom[i], copyRandom[j]] = [copyRandom[j], copyRandom[i]];
+}
+}
+return copyRandom;
+};
+
+// const desordenado = desordenar(['fundo', 'base tr', 'base ct']);
+// console.log(desordenado.shift()); // Pega o primeiro da lista
+// console.log(desordenado.shift()); // Pega o segundo da lista
+// console.log(desordenado.shift()); // Pega o terceiro da lista
 
   function insertBox(){
       let selectDiv = document.getElementById('questions-container')
-      console.log(selectDiv)
       for (i=0; i<1; i++){
-          selectDiv.insertAdjacentHTML('beforeend', `<h2></h2>
-          <div><p class="answer1" onclick="btn1()"></p><p class="answer2" onclick="btn2()"></p><p class="answer3" onclick="btn3()"></p><p class="answer4" onclick="btn4()"></p></div>
-          <div id="buttonSubmit"></div>`)   
+          selectDiv.insertAdjacentHTML('beforeend', `
+            <h2></h2>
+            <div>
+            <p class="answer1" onclick="btn1()"></p>
+            <p class="answer2" onclick="btn2()"></p>
+            <p class="answer3" onclick="btn3()"></p>
+            <p class="answer4" onclick="btn4()"></p>
+            </div>
+          `)   
       }
   }
   function insertCorrectQuestions(){
@@ -172,20 +211,18 @@ let wrongAnswer = 0
       }
   }
 
-
-  let nextQ = 0
   function insertQuestions(){
     if (nextQ === 0){
       let selectH2 = document.querySelector('h2')
       selectH2.insertAdjacentHTML('beforeend', questions[nextQ].question)
       let selectP1 = document.querySelector('.answer1')
-      selectP1.insertAdjacentHTML('beforeend', questions[nextQ].correct_answer)
+      selectP1.insertAdjacentHTML('beforeend', copyRandom[0])
       let selectP2 = document.querySelector('.answer2')
-      selectP2.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[0])
+      selectP2.insertAdjacentHTML('beforeend', copyRandom[1])
       let selectP3 = document.querySelector('.answer3')
-      selectP3.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[1])
+      selectP3.insertAdjacentHTML('beforeend', copyRandom[2])
       let selectP4 = document.querySelector('.answer4')
-      selectP4.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[2])
+      selectP4.insertAdjacentHTML('beforeend', copyRandom[3])
     } else (
     cleanContainer()
     )
@@ -194,9 +231,12 @@ let wrongAnswer = 0
   function btn1(){
       let btn2 = document.querySelector(".answer1")
       btn2.onclick = function(){
-        answersSubmitted.push(questions[nextQ].correct_answer)
+        answersSubmitted.push(copyRandom[0])
         console.log(answersSubmitted)
+        checkResultRealTime()
         nextQ += 1
+        if (nextQ <10)
+        unordered();
         insertQuestions();
         //checkSelected();
       }
@@ -206,9 +246,12 @@ let wrongAnswer = 0
   function btn2(){
       let btn2 = document.querySelector(".answer2")
       btn2.onclick = function(){
-        answersSubmitted.push(questions[nextQ].incorrect_answers[0])
+        answersSubmitted.push(copyRandom[1])
         console.log(answersSubmitted)
+        checkResultRealTime()
         nextQ += 1
+        if (nextQ <10)
+        unordered();
         insertQuestions();
         //checkSelected();
       }
@@ -218,9 +261,12 @@ let wrongAnswer = 0
   function btn3(){
       let btn2 = document.querySelector(".answer3")
       btn2.onclick = function(){
-        answersSubmitted.push(questions[nextQ].incorrect_answers[1])
+        answersSubmitted.push(copyRandom[2])
         console.log(answersSubmitted)
+        checkResultRealTime()
         nextQ += 1
+        if (nextQ <10)
+        unordered();
         insertQuestions();
         //checkSelected();
       }
@@ -230,10 +276,12 @@ let wrongAnswer = 0
   function btn4(){
       let btn2 = document.querySelector(".answer4")
       btn2.onclick = function(){
-        answersSubmitted.push(questions[nextQ].incorrect_answers[2])
+        answersSubmitted.push(copyRandom[3])
         console.log(answersSubmitted)
+        checkResultRealTime()
         nextQ += 1
-        console.log(nextQ)
+        if (nextQ <10)
+        unordered();
         insertQuestions();
         //checkSelected();
       }
@@ -261,20 +309,20 @@ let wrongAnswer = 0
       let selectH2 = document.querySelector('h2')
       selectH2.insertAdjacentHTML('beforeend', questions[nextQ].question)
       let selectP1 = document.querySelector('.answer1')
-      selectP1.insertAdjacentHTML('beforeend', questions[nextQ].correct_answer)
+      selectP1.insertAdjacentHTML('beforeend', copyRandom[0])
       let selectP2 = document.querySelector('.answer2')
-      selectP2.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[0])
+      selectP2.insertAdjacentHTML('beforeend', copyRandom[1])
       let selectP3 = document.querySelector('.answer3')
-      selectP3.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[1])
+      selectP3.insertAdjacentHTML('beforeend', copyRandom[2])
       let selectP4 = document.querySelector('.answer4')
-      selectP4.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[2])
+      selectP4.insertAdjacentHTML('beforeend', copyRandom[3])
       }else{ 
       let selectH2 = document.querySelector('h2')
       selectH2.insertAdjacentHTML('beforeend', questions[nextQ].question)
       let selectP1 = document.querySelector('.answer1')
-      selectP1.insertAdjacentHTML('beforeend', questions[nextQ].correct_answer)
+      selectP1.insertAdjacentHTML('beforeend', copyRandom[0])
       let selectP2 = document.querySelector('.answer2')
-      selectP2.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[0])
+      selectP2.insertAdjacentHTML('beforeend', copyRandom[1])
       }
     } 
 
@@ -289,6 +337,19 @@ let wrongAnswer = 0
 return alert(`Your score is ${rightAnswer} of ${questions.length}`)
 }
 
+function checkResultRealTime(){             
+      if (answersSubmitted[nextQ] === correctQuestions[nextQ]) {        
+          if (rightAnswerRealTime > 0){
+          let selectP1 = document.querySelector('h3')
+          selectP1.innerHTML=""
+          } 
+          rightAnswerRealTime += 1
+        let selectP2 = document.getElementById('questions-container')
+        selectP2.insertAdjacentHTML('afterend', `<h3>+${rightAnswerRealTime}</h3>`)
+      }
+}
+
+
 //   function insertBox(){
     
 //     let numbersContainer = document.getElementById("questions-container")
@@ -301,6 +362,7 @@ return alert(`Your score is ${rightAnswer} of ${questions.length}`)
 // }
 
 insertBox();
+unordered();
 insertQuestions();
 insertCorrectQuestions();
 btn1();
