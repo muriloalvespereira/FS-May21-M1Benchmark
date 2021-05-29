@@ -154,6 +154,8 @@
 
 let answersSubmitted = []
 let correctQuestions = []
+let rightAnswer = 0
+let wrongAnswer = 0
 
   function insertBox(){
       let selectDiv = document.getElementById('questions-container')
@@ -250,7 +252,7 @@ let correctQuestions = []
       selectP4.innerHTML=""
       insertNextQuestions()
       } else{
-        alert("Test Finished")
+       checkResult()
       }
     } 
 
@@ -275,8 +277,17 @@ let correctQuestions = []
       selectP2.insertAdjacentHTML('beforeend', questions[nextQ].incorrect_answers[0])
       }
     } 
-    console.log(correctQuestions)
 
+    function checkResult(){
+    for (let i = 0; i < correctQuestions.length; i++) {                 
+      if (answersSubmitted[i] === correctQuestions[i]) {
+        rightAnswer += 1
+    }  else {
+    wrongAnswer += 1
+  }
+}
+return alert(`Your score is ${rightAnswer}`)
+}
 
 //   function insertBox(){
     
