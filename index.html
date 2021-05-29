@@ -158,7 +158,6 @@ let rightAnswer = 0
 let wrongAnswer = 0
 let nextQ = 0
 let rightAnswerRealTime = 0
-//let randomQuestions = [questions[nextQ].correct_answer, questions[nextQ].incorrect_answers[0], questions[nextQ].incorrect_answers[1], questions[nextQ].incorrect_answers[2]]
 let copyRandom = []
 
 function unordered(){
@@ -335,7 +334,7 @@ return copyRandom;
     wrongAnswer += 1
   }
 }
-return alert(`Your score is ${rightAnswer} of ${questions.length}`)
+    finalScreen()
 }
     }
 function checkResultRealTime(){             
@@ -348,6 +347,25 @@ function checkResultRealTime(){
         let selectP2 = document.getElementById('questions-container')
         selectP2.insertAdjacentHTML('afterend', `<h3>+${rightAnswerRealTime}</h3>`)
       }
+}
+
+function finalScreen(){
+      let selectH1 = document.querySelector('h1')
+      selectH1.innerHTML=""   
+      let selectH2 = document.querySelector('h2')
+      selectH2.innerHTML=""
+      let selectP1 = document.querySelector('.answer1')
+      selectP1.innerHTML=""
+      let selectP2 = document.querySelector('.answer2')
+      selectP2.innerHTML=""
+      let selectP3 = document.querySelector('.answer3')
+      selectP3.innerHTML=""
+      let selectP4 = document.querySelector('.answer4')
+      selectP4.innerHTML=""
+      let selectP5 = document.querySelector('h3')
+      selectP5.innerHTML=""
+      let selectH3 = document.querySelector('h2')
+      selectH3.insertAdjacentHTML('beforeend', `Your score is ${rightAnswer} of ${questions.length}<br>Thank you !!!`)
 }
 
 
