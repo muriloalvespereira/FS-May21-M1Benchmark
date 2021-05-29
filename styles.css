@@ -29,6 +29,11 @@ h1 {
     text-transform: uppercase;
     font-weight: bold;
 }
+p {
+   cursor: pointer;
+}
+p:hover{background-color: white;color: #00db71}
+
 #user-container {
     border-style: solid;
     display: inline-block;
