@@ -327,6 +327,7 @@ return copyRandom;
     } 
 
     function checkResult(){
+      if (nextQ<=questions.length){
     for (let i = 0; i < correctQuestions.length; i++) {                 
       if (answersSubmitted[i] === correctQuestions[i]) {
         rightAnswer += 1
@@ -336,7 +337,7 @@ return copyRandom;
 }
 return alert(`Your score is ${rightAnswer} of ${questions.length}`)
 }
-
+    }
 function checkResultRealTime(){             
       if (answersSubmitted[nextQ] === correctQuestions[nextQ]) {        
           if (rightAnswerRealTime > 0){
