@@ -45,7 +45,15 @@ p:hover{background-color: white;color: #00db71}
 
 button {
     align-content: center;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+    color: #00db71;
+    font-weight: bold;
+    border-radius: 8px;
 }
+    button:hover{background-color: #036134; color: white;}
 
 #user-container {
     border-style: solid;

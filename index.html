@@ -385,7 +385,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
       }
@@ -399,7 +399,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
       }
@@ -414,7 +414,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
       }
@@ -429,7 +429,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
       }
@@ -444,7 +444,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTimeHard()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
       }
@@ -458,7 +458,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTimeHard()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
       }
@@ -473,7 +473,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTimeHard()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
       }
@@ -488,7 +488,7 @@ function insertQuestionsHard(){
         console.log(answersSubmitted)
         checkResultRealTimeHard()
         nextQ += 1
-        if (nextQ <5)
+        if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
       }
@@ -498,7 +498,7 @@ function insertQuestionsHard(){
 
 
     function cleanContainer(){
-      if (nextQ <5){
+      if (nextQ < easyQ.length){
         let selectH2 = document.querySelector('h2')
       selectH2.innerHTML=""
       let selectP1 = document.querySelector('.answer1')
@@ -519,7 +519,7 @@ function insertQuestionsHard(){
 
 
 function cleanContainerHard(){
-      if (nextQ <5){
+      if (nextQ < hardQ.length){
         let selectH2 = document.querySelector('h2')
       selectH2.innerHTML=""
       let selectP1 = document.querySelector('.answerHard1')
@@ -733,7 +733,7 @@ function firstScreen(){
       let selectH2 = document.querySelector('h2')
       selectH2.insertAdjacentHTML('beforeend', `Play mode:`)
       let selectP1 = document.querySelector('.buttons')
-      selectP1.insertAdjacentHTML('beforeend', `<button class="btnEasy" onclick="btnFirstEasy()">Easy</button><button class="btnHard" onclick="btnFirstHard()">Hard</button>`)
+      selectP1.insertAdjacentHTML('beforeend', `<button class="btnEasy" onclick="btnFirstEasy()">Easy</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btnHard" onclick="btnFirstHard()">Hard</button>`)
     }
   }
 
