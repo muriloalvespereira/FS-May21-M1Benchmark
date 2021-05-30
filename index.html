@@ -88,7 +88,7 @@
       {
         category: "Science: Computers",
         type: "multiple",
-        difficulty: "easy",
+        difficulty: "hard",
         question: "In web design, what does CSS stand for?",
         correct_answer: "Cascading Style Sheet",
         incorrect_answers: [
@@ -100,7 +100,7 @@
       {
         category: "Science: Computers",
         type: "multiple",
-        difficulty: "easy",
+        difficulty: "hard",
         question:
           "What is the code name for the mobile operating system Android 7.0?",
         correct_answer: "Nougat",
@@ -113,7 +113,7 @@
       {
         category: "Science: Computers",
         type: "multiple",
-        difficulty: "easy",
+        difficulty: "hard",
         question: "On Twitter, what is the character limit for a Tweet?",
         correct_answer: "140",
         incorrect_answers: ["120", "160", "100"],
@@ -121,7 +121,7 @@
       {
         category: "Science: Computers",
         type: "boolean",
-        difficulty: "easy",
+        difficulty: "hard",
         question: "Linux was first created as an alternative to Windows XP.",
         correct_answer: "False",
         incorrect_answers: ["True"],
@@ -129,7 +129,7 @@
       {
         category: "Science: Computers",
         type: "multiple",
-        difficulty: "easy",
+        difficulty: "hard",
         question:
           "Which programming language shares its name with an island in Indonesia?",
         correct_answer: "Java",
@@ -154,11 +154,31 @@
 
 let answersSubmitted = []
 let correctQuestions = []
+let easyCorrectQuestions = []
+let hardCorrectQuestions = []
 let rightAnswer = 0
 let wrongAnswer = 0
 let nextQ = 0
 let rightAnswerRealTime = 0
 let copyRandom = []
+let copyRandomEasy = []
+let copyRandomHard = []
+let easyQ = []
+let hardQ = []
+
+//---------------------------KIND OF QUESTIONS-------------------------------
+
+function kindOfQuestions(){
+  for (i=0; i<questions.length; i++){
+    if (questions[i].difficulty === "easy"){
+      easyQ.push(questions[i])
+    } else{
+      hardQ.push(questions[i])
+    }
+  }
+}
+ 
+//--------------------------------SHUFFLER-------------------------------------
 
 function unordered(){
   if (questions[nextQ].incorrect_answers[1] !== undefined){
@@ -185,16 +205,66 @@ function unordered(){
 return copyRandom;
 };
 
-// const desordenado = desordenar(['fundo', 'base tr', 'base ct']);
-// console.log(desordenado.shift()); // Pega o primeiro da lista
-// console.log(desordenado.shift()); // Pega o segundo da lista
-// console.log(desordenado.shift()); // Pega o terceiro da lista
+//---------------------------SHUFFLER DIFFICULTY EASY-------------------------------------
+
+function unorderedDifficultyEasy(){
+  if (easyQ[nextQ].incorrect_answers[1] !== undefined){
+  copyRandomEasy = [
+                easyQ[nextQ].correct_answer,
+                easyQ[nextQ].incorrect_answers[0], 
+                easyQ[nextQ].incorrect_answers[1], 
+                easyQ[nextQ].incorrect_answers[2]
+              ];
+  for (let i = copyRandomEasy.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [copyRandomEasy[i], copyRandomEasy[j]] = [copyRandomEasy[j], copyRandomEasy[i]];
+  }
+}else{
+  copyRandomEasy = [
+                easyQ[nextQ].correct_answer,
+                easyQ[nextQ].incorrect_answers[0]
+              ];
+  for (let i = copyRandomEasy.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [copyRandomEasy[i], copyRandomEasy[j]] = [copyRandomEasy[j], copyRandomEasy[i]];
+}
+}
+return copyRandomEasy;
+};
+
+//---------------------------SHUFFLER DIFFICULTY HARD-------------------------------------
+
+function unorderedDifficultyHard(){
+  if (hardQ[nextQ].incorrect_answers[1] !== undefined){
+  copyRandomHard = [
+                hardQ[nextQ].correct_answer,
+                hardQ[nextQ].incorrect_answers[0], 
+                hardQ[nextQ].incorrect_answers[1], 
+                hardQ[nextQ].incorrect_answers[2]
+              ];
+  for (let i = copyRandomHard.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [copyRandomHard[i], copyRandomHard[j]] = [copyRandomHard[j], copyRandomHard[i]];
+  }
+}else{
+  copyRandomHard = [
+                hardQ[nextQ].correct_answer,
+                hardQ[nextQ].incorrect_answers[0]
+              ];
+  for (let i = copyRandomHard.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [copyRandomHard[i], copyRandomHard[j]] = [copyRandomHard[j], copyRandomHard[i]];
+}
+}
+return copyRandomHard;
+};
+
+//---------------------------INSERT BOX----------------------------------------------
 
   function insertBox(){
       let selectDiv = document.getElementById('questions-container')
       for (i=0; i<1; i++){
           selectDiv.insertAdjacentHTML('beforeend', `
-            <h2></h2>
             <div>
             <p class="answer1" onclick="btn1()"></p>
             <p class="answer2" onclick="btn2()"></p>
@@ -204,11 +274,46 @@ return copyRandom;
           `)   
       }
   }
+
+  //---------------------------INSERT BOX HARD----------------------------------------------
+
+  function insertBoxHard(){
+      let selectDiv = document.getElementById('questions-container')
+      for (i=0; i<1; i++){
+          selectDiv.insertAdjacentHTML('beforeend', `
+            <div>
+            <p class="answerHard1" onclick="btn1Hard()"></p>
+            <p class="answerHard2" onclick="btn2Hard()"></p>
+            <p class="answerHard3" onclick="btn3Hard()"></p>
+            <p class="answerHard4" onclick="btn4Hard()"></p>
+            </div>
+          `)   
+      }
+  }
+
+//---------------------------INSERT CORRECT QUESTIONS-------------------------------
   function insertCorrectQuestions(){
       for (i=0; i<questions.length; i++){
            correctQuestions.push(questions[i].correct_answer)
       }
   }
+
+//---------------------------INSERT EASY CORRECT QUESTIONS-------------------------------
+  function insertEasyCorrectQuestions(){
+      for (i=0; i<easyQ.length; i++){
+           easyCorrectQuestions.push(easyQ[i].correct_answer)
+      }
+  }
+
+//---------------------------INSERT HARD CORRECT QUESTIONS-------------------------------
+  function insertHardCorrectQuestions(){
+      for (i=0; i<hardQ.length; i++){
+           hardCorrectQuestions.push(hardQ[i].correct_answer)
+      }
+  }
+
+
+//---------------------------INSERT QUESTIONS--------------------------------------
 
   function insertQuestions(){
     if (nextQ === 0){
@@ -226,67 +331,174 @@ return copyRandom;
     cleanContainer()
     )
 }
+//---------------------------INSERT EASY QUESTIONS--------------------------------------
 
+function insertQuestionsEasy(){
+    if (nextQ === 0){
+      let selectH3 = document.querySelector('h2')
+      selectH3.innerHTML=""
+      let selectP5 = document.querySelector('.buttons')
+      selectP5.innerHTML=""
+      let selectH2 = document.querySelector('h2')
+      selectH2.insertAdjacentHTML('beforeend', easyQ[nextQ].question)
+      let selectP1 = document.querySelector('.answer1')
+      selectP1.insertAdjacentHTML('beforeend', copyRandomEasy[0])
+      let selectP2 = document.querySelector('.answer2')
+      selectP2.insertAdjacentHTML('beforeend', copyRandomEasy[1])
+      let selectP3 = document.querySelector('.answer3')
+      selectP3.insertAdjacentHTML('beforeend', copyRandomEasy[2])
+      let selectP4 = document.querySelector('.answer4')
+      selectP4.insertAdjacentHTML('beforeend', copyRandomEasy[3])
+    } else (
+    cleanContainer()
+    )
+}
+
+//---------------------------INSERT HARD QUESTIONS--------------------------------------
+
+function insertQuestionsHard(){
+    if (nextQ === 0){
+      let selectH3 = document.querySelector('h2')
+      selectH3.innerHTML=""
+      let selectP5 = document.querySelector('.buttons')
+      selectP5.innerHTML=""
+      let selectH2 = document.querySelector('h2')
+      selectH2.insertAdjacentHTML('beforeend', hardQ[nextQ].question)
+      let selectP1 = document.querySelector('.answerHard1')
+      selectP1.insertAdjacentHTML('beforeend', copyRandomHard[0])
+      let selectP2 = document.querySelector('.answerHard2')
+      selectP2.insertAdjacentHTML('beforeend', copyRandomHard[1])
+      let selectP3 = document.querySelector('.answerHard3')
+      selectP3.insertAdjacentHTML('beforeend', copyRandomHard[2])
+      let selectP4 = document.querySelector('.answerHard4')
+      selectP4.insertAdjacentHTML('beforeend', copyRandomHard[3])
+    } else (
+    cleanContainerHard()
+    )
+}
+
+//---------------------------BUTTON ONE--------------------------------------
   function btn1(){
-      let btn2 = document.querySelector(".answer1")
-      btn2.onclick = function(){
-        answersSubmitted.push(copyRandom[0])
+      let btn1 = document.querySelector(".answer1")
+      btn1.onclick = function(){
+        answersSubmitted.push(copyRandomEasy[0])
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <10)
-        unordered();
-        insertQuestions();
-        //checkSelected();
+        if (nextQ <5)
+        unorderedDifficultyEasy();
+        cleanContainer();
       }
     }
 
-    
+//---------------------------BUTTON TWO--------------------------------------  
   function btn2(){
       let btn2 = document.querySelector(".answer2")
       btn2.onclick = function(){
-        answersSubmitted.push(copyRandom[1])
+        answersSubmitted.push(copyRandomEasy[1])
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <10)
-        unordered();
-        insertQuestions();
-        //checkSelected();
+        if (nextQ <5)
+        unorderedDifficultyEasy();
+        cleanContainer();
       }
     }
 
-    
+//---------------------------BUTTON THREE--------------------------------------
+
   function btn3(){
-      let btn2 = document.querySelector(".answer3")
-      btn2.onclick = function(){
-        answersSubmitted.push(copyRandom[2])
+      let btn3 = document.querySelector(".answer3")
+      btn3.onclick = function(){
+        answersSubmitted.push(copyRandomEasy[2])
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <10)
-        unordered();
-        insertQuestions();
-        //checkSelected();
+        if (nextQ <5)
+        unorderedDifficultyEasy();
+        cleanContainer();
       }
     }
 
-    
+//---------------------------BUTTON FOUR--------------------------------------
+
   function btn4(){
-      let btn2 = document.querySelector(".answer4")
-      btn2.onclick = function(){
-        answersSubmitted.push(copyRandom[3])
+      let btn4 = document.querySelector(".answer4")
+      btn4.onclick = function(){
+        answersSubmitted.push(copyRandomEasy[3])
         console.log(answersSubmitted)
         checkResultRealTime()
         nextQ += 1
-        if (nextQ <10)
-        unordered();
-        insertQuestions();
-        //checkSelected();
+        if (nextQ <5)
+        unorderedDifficultyEasy();
+        cleanContainer();
       }
     }
+
+//---------------------------BUTTON ONE HARD--------------------------------------
+
+  function btn1Hard(){
+      let btn5 = document.querySelector(".answerHard1")
+      btn5.onclick = function(){
+        answersSubmitted.push(copyRandomHard[0])
+        console.log(answersSubmitted)
+        checkResultRealTimeHard()
+        nextQ += 1
+        if (nextQ <5)
+        unorderedDifficultyHard();
+        cleanContainerHard();
+      }
+    }
+
+//---------------------------BUTTON TWO HARD--------------------------------------  
+  function btn2Hard(){
+      let btn6 = document.querySelector(".answerHard2")
+      btn6.onclick = function(){
+        answersSubmitted.push(copyRandomHard[1])
+        console.log(answersSubmitted)
+        checkResultRealTimeHard()
+        nextQ += 1
+        if (nextQ <5)
+        unorderedDifficultyHard();
+        cleanContainerHard();
+      }
+    }
+
+//---------------------------BUTTON THREE HARD--------------------------------------
+
+  function btn3Hard(){
+      let btn7 = document.querySelector(".answerHard3")
+      btn7.onclick = function(){
+        answersSubmitted.push(copyRandomHard[2])
+        console.log(answersSubmitted)
+        checkResultRealTimeHard()
+        nextQ += 1
+        if (nextQ <5)
+        unorderedDifficultyHard();
+        cleanContainerHard();
+      }
+    }
+
+//---------------------------BUTTON FOUR HARD--------------------------------------
+
+  function btn4Hard(){
+      let btn8 = document.querySelector(".answerHard4")
+      btn8.onclick = function(){
+        answersSubmitted.push(copyRandomHard[3])
+        console.log(answersSubmitted)
+        checkResultRealTimeHard()
+        nextQ += 1
+        if (nextQ <5)
+        unorderedDifficultyHard();
+        cleanContainerHard();
+      }
+    }
+
+//---------------------------CLEAN CONTAINER--------------------------------------
+
+
     function cleanContainer(){
-      if (nextQ <10){
+      if (nextQ <5){
         let selectH2 = document.querySelector('h2')
       selectH2.innerHTML=""
       let selectP1 = document.querySelector('.answer1')
@@ -297,11 +509,34 @@ return copyRandom;
       selectP3.innerHTML=""
       let selectP4 = document.querySelector('.answer4')
       selectP4.innerHTML=""
-      insertNextQuestions()
+      insertNextEasyQuestions()
       } else{
-       checkResult()
+        checkResultEasy()
       }
     } 
+    
+//---------------------------CLEAN CONTAINER HARD--------------------------------------
+
+
+function cleanContainerHard(){
+      if (nextQ <5){
+        let selectH2 = document.querySelector('h2')
+      selectH2.innerHTML=""
+      let selectP1 = document.querySelector('.answerHard1')
+      selectP1.innerHTML=""
+      let selectP2 = document.querySelector('.answerHard2')
+      selectP2.innerHTML=""
+      let selectP3 = document.querySelector('.answerHard3')
+      selectP3.innerHTML=""
+      let selectP4 = document.querySelector('.answerHard4')
+      selectP4.innerHTML=""
+      insertNextHardQuestions()
+      } else{
+        checkResultHard()
+      }
+    } 
+
+    //---------------------------INSERT NEXT QUESTIONS--------------------------------------
 
     function insertNextQuestions(){
       if (questions[nextQ].incorrect_answers[1] !== undefined){
@@ -325,20 +560,105 @@ return copyRandom;
       }
     } 
 
+     //---------------------------INSERT NEXT EASY QUESTIONS--------------------------------------
+
+     
+    function insertNextEasyQuestions(){
+      if (easyQ[nextQ].incorrect_answers[1] !== undefined){
+      let selectH2 = document.querySelector('h2')
+      selectH2.insertAdjacentHTML('beforeend', easyQ[nextQ].question)
+      let selectP1 = document.querySelector('.answer1')
+      selectP1.insertAdjacentHTML('beforeend', copyRandomEasy[0])
+      let selectP2 = document.querySelector('.answer2')
+      selectP2.insertAdjacentHTML('beforeend', copyRandomEasy[1])
+      let selectP3 = document.querySelector('.answer3')
+      selectP3.insertAdjacentHTML('beforeend', copyRandomEasy[2])
+      let selectP4 = document.querySelector('.answer4')
+      selectP4.insertAdjacentHTML('beforeend', copyRandomEasy[3])
+      }else{ 
+      let selectH2 = document.querySelector('h2')
+      selectH2.insertAdjacentHTML('beforeend', easyQ[nextQ].question)
+      let selectP1 = document.querySelector('.answer1')
+      selectP1.insertAdjacentHTML('beforeend', copyRandomEasy[0])
+      let selectP2 = document.querySelector('.answer2')
+      selectP2.insertAdjacentHTML('beforeend', copyRandomEasy[1])
+      }
+    } 
+
+     //---------------------------INSERT NEXT HARD QUESTIONS--------------------------------------
+
+     
+     function insertNextHardQuestions(){
+      if (hardQ[nextQ].incorrect_answers[1] !== undefined){
+      let selectH2 = document.querySelector('h2')
+      selectH2.insertAdjacentHTML('beforeend', hardQ[nextQ].question)
+      let selectP1 = document.querySelector('.answerHard1')
+      selectP1.insertAdjacentHTML('beforeend', copyRandomHard[0])
+      let selectP2 = document.querySelector('.answerHard2')
+      selectP2.insertAdjacentHTML('beforeend', copyRandomHard[1])
+      let selectP3 = document.querySelector('.answerHard3')
+      selectP3.insertAdjacentHTML('beforeend', copyRandomHard[2])
+      let selectP4 = document.querySelector('.answerHard4')
+      selectP4.insertAdjacentHTML('beforeend', copyRandomHard[3])
+      }else{ 
+      let selectH2 = document.querySelector('h2')
+      selectH2.insertAdjacentHTML('beforeend', hardQ[nextQ].question)
+      let selectP1 = document.querySelector('.answerHard1')
+      selectP1.insertAdjacentHTML('beforeend', copyRandomHard[0])
+      let selectP2 = document.querySelector('.answerHard2')
+      selectP2.insertAdjacentHTML('beforeend', copyRandomHard[1])
+      }
+    } 
+    
+  //---------------------------CHECK RESULT--------------------------------------
+
     function checkResult(){
       if (nextQ<=questions.length){
-    for (let i = 0; i < correctQuestions.length; i++) {                 
-      if (answersSubmitted[i] === correctQuestions[i]) {
-        rightAnswer += 1
-    }  else {
-    wrongAnswer += 1
-  }
-}
-    finalScreen()
-}
+        for (let i = 0; i < correctQuestions.length; i++) {                 
+          if (answersSubmitted[i] === correctQuestions[i]) {
+              rightAnswer += 1
+          }else{
+                wrongAnswer += 1
+              }
+        }       
+          finalScreen()
+      }
     }
+
+  //---------------------------CHECK EASY RESULT--------------------------------------
+
+    function checkResultEasy(){
+      if (nextQ<=easyQ.length){
+        for (let i = 0; i < easyCorrectQuestions.length; i++) {                 
+          if (answersSubmitted[i] === easyCorrectQuestions[i]) {
+              rightAnswer += 1
+          }else{
+                wrongAnswer += 1
+              }
+        }       
+          finalScreen()
+      }
+    }
+
+      //---------------------------CHECK HARD RESULT--------------------------------------
+
+      function checkResultHard(){
+      if (nextQ<=hardQ.length){
+        for (let i = 0; i < hardCorrectQuestions.length; i++) {                 
+          if (answersSubmitted[i] === hardCorrectQuestions[i]) {
+              rightAnswer += 1
+          }else{
+                wrongAnswer += 1
+              }
+        }       
+          finalScreenHard()
+      }
+    }
+
+  //---------------------------CHECK RESULT REAL TIME--------------------------------------
+    
 function checkResultRealTime(){             
-      if (answersSubmitted[nextQ] === correctQuestions[nextQ]) {        
+      if (answersSubmitted[nextQ] === easyCorrectQuestions[nextQ]) {        
           if (rightAnswerRealTime > 0){
           let selectP1 = document.querySelector('h3')
           selectP1.innerHTML=""
@@ -348,6 +668,22 @@ function checkResultRealTime(){
         selectP2.insertAdjacentHTML('afterend', `<h3>+${rightAnswerRealTime}</h3>`)
       }
 }
+
+  //---------------------------CHECK RESULT REAL TIME--------------------------------------
+    
+  function checkResultRealTimeHard(){             
+      if (answersSubmitted[nextQ] === hardCorrectQuestions[nextQ]) {        
+          if (rightAnswerRealTime > 0){
+          let selectP1 = document.querySelector('h3')
+          selectP1.innerHTML=""
+          } 
+          rightAnswerRealTime += 1
+        let selectP2 = document.getElementById('questions-container')
+        selectP2.insertAdjacentHTML('afterend', `<h3>+${rightAnswerRealTime}</h3>`)
+      }
+}
+
+//---------------------------FINAL SCREEN--------------------------------------
 
 function finalScreen(){
       let selectH1 = document.querySelector('h1')
@@ -363,29 +699,88 @@ function finalScreen(){
       let selectP4 = document.querySelector('.answer4')
       selectP4.innerHTML=""
       let selectH3 = document.querySelector('h2')
-      selectH3.insertAdjacentHTML('beforeend', `Your score is ${rightAnswer} of ${questions.length}<br>Thank you !!!`)
+      selectH3.insertAdjacentHTML('beforeend', `Your final score is ${rightAnswer} of ${easyQ.length}<br>Thank you !!!`)
 }
 
+//---------------------------FINAL SCREEN HARD--------------------------------------
 
-//   function insertBox(){
-    
-//     let numbersContainer = document.getElementById("questions-container")
-//     for (let i = 0; i <questions.length; i++){
-//         let newNum = document.createElement("div")
-//         newNum.innerText = questions[i].question
-//         newNum.classList.add("user-container")
-//         numbersContainer.appendChild(newNum)
-//     }
-// }
+function finalScreenHard(){
+      let selectH1 = document.querySelector('h1')
+      selectH1.innerHTML=""   
+      let selectH2 = document.querySelector('h2')
+      selectH2.innerHTML=""
+      let selectP1 = document.querySelector('.answerHard1')
+      selectP1.innerHTML=""
+      let selectP2 = document.querySelector('.answerHard2')
+      selectP2.innerHTML=""
+      let selectP3 = document.querySelector('.answerHard3')
+      selectP3.innerHTML=""
+      let selectP4 = document.querySelector('.answerHard4')
+      selectP4.innerHTML=""
+      let selectH3 = document.querySelector('h2')
+      selectH3.insertAdjacentHTML('beforeend', `Your final score is ${rightAnswer} of ${hardQ.length}<br>Thank you !!!`)
+}
 
-insertBox();
-unordered();
-insertQuestions();
-insertCorrectQuestions();
+//---------------------------FIRST SCREEN--------------------------------------
+
+function firstScreen(){
+  if (nextQ === 0){
+          let selectDiv = document.getElementById('questions-container')
+          selectDiv.insertAdjacentHTML('beforeend', `
+            <h2></h2>
+            <div class="buttons">
+            </div>`)
+      let selectH2 = document.querySelector('h2')
+      selectH2.insertAdjacentHTML('beforeend', `Play mode:`)
+      let selectP1 = document.querySelector('.buttons')
+      selectP1.insertAdjacentHTML('beforeend', `<button class="btnEasy" onclick="btnFirstEasy()">Easy</button><button class="btnHard" onclick="btnFirstHard()">Hard</button>`)
+    }
+  }
+
+//---------------------------BUTTON EASY--------------------------------------
+
+  function btnFirstEasy(){
+      let btn2 = document.querySelector(".btnEasy")
+      btn2.onclick = function(){
+        if (nextQ <easyQ.length)
+        // insertBox();
+        unorderedDifficultyEasy();
+        insertQuestionsEasy();
+      }
+    }
+
+//---------------------------BUTTON HARD--------------------------------------
+
+  function btnFirstHard(){
+      let btn2 = document.querySelector(".btnHard")
+      btn2.onclick = function(){
+        if (nextQ <hardQ.length)
+        // insertBoxHard();
+        unorderedDifficultyHard();
+        insertQuestionsHard();
+      }
+    }
+
+//---------------------------CALLING FUNCTIONS--------------------------------------
+
+kindOfQuestions();
+firstScreen();
+btnFirstEasy();
+btnFirstHard();
+insertBox()
+insertBoxHard()
+unorderedDifficultyEasy();
+unorderedDifficultyHard();
+insertEasyCorrectQuestions();
+insertHardCorrectQuestions();
 btn1();
 btn2();
 btn3();
 btn4();
+btn1Hard();
+btn2Hard();
+btn3Hard();
+btn4Hard();
 
   </script>
 </body>

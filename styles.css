@@ -43,6 +43,10 @@ p {
 }
 p:hover{background-color: white;color: #00db71}
 
+button {
+    align-content: center;
+}
+
 #user-container {
     border-style: solid;
     display: inline-block;
