@@ -135,6 +135,42 @@
         correct_answer: "Java",
         incorrect_answers: ["Python", "C", "Jakarta"],
       },
+      {
+        category: "World: Geography",
+        type: "multiple",
+        difficulty: "hard",
+        question:
+          "What country has the longest coastline in the world?",
+        correct_answer: "Canada",
+        incorrect_answers: ["Brazil", "Russia", "China"],
+      },
+      {
+        category: "World: Geography",
+        type: "multiple",
+        difficulty: "hard",
+        question:
+          "What is the capital of Malta?",
+        correct_answer: "Valleta",
+        incorrect_answers: ["Athens", "Dublin", "Naples"],
+      },
+      {
+        category: "World: Geography",
+        type: "multiple",
+        difficulty: "easy",
+        question:
+          "What country is the newest in the world to be recognised by the UN?",
+        correct_answer: "South Sudan",
+        incorrect_answers: ["Vatican", "Andorra", "Monaco"],
+      },
+      {
+        category: "World: Geography",
+        type: "multiple",
+        difficulty: "easy",
+        question:
+          "What is the name of the largest river to flow through Paris?",
+        correct_answer: "The Seine",
+        incorrect_answers: ["The Nile", "Amazon", "Mississippi"],
+      },
     ];
 
     window.onload = function () {
@@ -165,6 +201,7 @@ let copyRandomEasy = []
 let copyRandomHard = []
 let easyQ = []
 let hardQ = []
+let howManyQ
 
 //---------------------------KIND OF QUESTIONS-------------------------------
 
@@ -379,8 +416,8 @@ function insertQuestionsHard(){
 
 //---------------------------BUTTON ONE--------------------------------------
   function btn1(){
-      let btn1 = document.querySelector(".answer1")
-      btn1.onclick = function(){
+      // let btn1 = document.querySelector(".answer1")
+      // btn1.onclick = function(){
         answersSubmitted.push(copyRandomEasy[0])
         console.log(answersSubmitted)
         checkResultRealTime()
@@ -388,13 +425,13 @@ function insertQuestionsHard(){
         if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
-      }
+      // }
     }
 
 //---------------------------BUTTON TWO--------------------------------------  
   function btn2(){
-      let btn2 = document.querySelector(".answer2")
-      btn2.onclick = function(){
+      // let btn2 = document.querySelector(".answer2")
+      // btn2.onclick = function(){
         answersSubmitted.push(copyRandomEasy[1])
         console.log(answersSubmitted)
         checkResultRealTime()
@@ -402,14 +439,14 @@ function insertQuestionsHard(){
         if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
-      }
+      // }
     }
 
 //---------------------------BUTTON THREE--------------------------------------
 
   function btn3(){
-      let btn3 = document.querySelector(".answer3")
-      btn3.onclick = function(){
+      // let btn3 = document.querySelector(".answer3")
+      // btn3.onclick = function(){
         answersSubmitted.push(copyRandomEasy[2])
         console.log(answersSubmitted)
         checkResultRealTime()
@@ -417,14 +454,14 @@ function insertQuestionsHard(){
         if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
-      }
+      // }
     }
 
 //---------------------------BUTTON FOUR--------------------------------------
 
   function btn4(){
-      let btn4 = document.querySelector(".answer4")
-      btn4.onclick = function(){
+      // let btn4 = document.querySelector(".answer4")
+      // btn4.onclick = function(){
         answersSubmitted.push(copyRandomEasy[3])
         console.log(answersSubmitted)
         checkResultRealTime()
@@ -432,14 +469,14 @@ function insertQuestionsHard(){
         if (nextQ < easyQ.length)
         unorderedDifficultyEasy();
         cleanContainer();
-      }
+      // }
     }
 
 //---------------------------BUTTON ONE HARD--------------------------------------
 
   function btn1Hard(){
-      let btn5 = document.querySelector(".answerHard1")
-      btn5.onclick = function(){
+      // let btn5 = document.querySelector(".answerHard1")
+      // btn5.onclick = function(){
         answersSubmitted.push(copyRandomHard[0])
         console.log(answersSubmitted)
         checkResultRealTimeHard()
@@ -447,13 +484,13 @@ function insertQuestionsHard(){
         if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
-      }
+      // }
     }
 
 //---------------------------BUTTON TWO HARD--------------------------------------  
   function btn2Hard(){
-      let btn6 = document.querySelector(".answerHard2")
-      btn6.onclick = function(){
+      // let btn6 = document.querySelector(".answerHard2")
+      // btn6.onclick = function(){
         answersSubmitted.push(copyRandomHard[1])
         console.log(answersSubmitted)
         checkResultRealTimeHard()
@@ -461,14 +498,14 @@ function insertQuestionsHard(){
         if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
-      }
+      // }
     }
 
 //---------------------------BUTTON THREE HARD--------------------------------------
 
   function btn3Hard(){
-      let btn7 = document.querySelector(".answerHard3")
-      btn7.onclick = function(){
+      // let btn7 = document.querySelector(".answerHard3")
+      // btn7.onclick = function(){
         answersSubmitted.push(copyRandomHard[2])
         console.log(answersSubmitted)
         checkResultRealTimeHard()
@@ -476,14 +513,14 @@ function insertQuestionsHard(){
         if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
-      }
+      // }
     }
 
 //---------------------------BUTTON FOUR HARD--------------------------------------
 
   function btn4Hard(){
-      let btn8 = document.querySelector(".answerHard4")
-      btn8.onclick = function(){
+      // let btn8 = document.querySelector(".answerHard4")
+      // btn8.onclick = function(){
         answersSubmitted.push(copyRandomHard[3])
         console.log(answersSubmitted)
         checkResultRealTimeHard()
@@ -491,14 +528,14 @@ function insertQuestionsHard(){
         if (nextQ < hardQ.length)
         unorderedDifficultyHard();
         cleanContainerHard();
-      }
+      // }
     }
 
 //---------------------------CLEAN CONTAINER--------------------------------------
 
 
     function cleanContainer(){
-      if (nextQ < easyQ.length){
+      if (nextQ < howManyQ){
         let selectH2 = document.querySelector('h2')
       selectH2.innerHTML=""
       let selectP1 = document.querySelector('.answer1')
@@ -519,7 +556,7 @@ function insertQuestionsHard(){
 
 
 function cleanContainerHard(){
-      if (nextQ < hardQ.length){
+      if (nextQ < howManyQ){
         let selectH2 = document.querySelector('h2')
       selectH2.innerHTML=""
       let selectP1 = document.querySelector('.answerHard1')
@@ -564,6 +601,7 @@ function cleanContainerHard(){
 
      
     function insertNextEasyQuestions(){
+      if (nextQ < howManyQ)
       if (easyQ[nextQ].incorrect_answers[1] !== undefined){
       let selectH2 = document.querySelector('h2')
       selectH2.insertAdjacentHTML('beforeend', easyQ[nextQ].question)
@@ -589,6 +627,7 @@ function cleanContainerHard(){
 
      
      function insertNextHardQuestions(){
+      if (nextQ < howManyQ)
       if (hardQ[nextQ].incorrect_answers[1] !== undefined){
       let selectH2 = document.querySelector('h2')
       selectH2.insertAdjacentHTML('beforeend', hardQ[nextQ].question)
@@ -655,8 +694,8 @@ function cleanContainerHard(){
       }
     }
 
-  //---------------------------CHECK RESULT REAL TIME--------------------------------------
-    
+  //---------------------------CHECK RESULT REAL TIME--------------------------------------         
+   
 function checkResultRealTime(){             
       if (answersSubmitted[nextQ] === easyCorrectQuestions[nextQ]) {        
           if (rightAnswerRealTime > 0){
@@ -699,7 +738,7 @@ function finalScreen(){
       let selectP4 = document.querySelector('.answer4')
       selectP4.innerHTML=""
       let selectH3 = document.querySelector('h2')
-      selectH3.insertAdjacentHTML('beforeend', `Your final score is ${rightAnswer} of ${easyQ.length}<br>Thank you !!!`)
+      selectH3.insertAdjacentHTML('beforeend', `Your final score is ${rightAnswer} of ${howManyQ}<br>Thank you !!!`)
 }
 
 //---------------------------FINAL SCREEN HARD--------------------------------------
@@ -718,7 +757,7 @@ function finalScreenHard(){
       let selectP4 = document.querySelector('.answerHard4')
       selectP4.innerHTML=""
       let selectH3 = document.querySelector('h2')
-      selectH3.insertAdjacentHTML('beforeend', `Your final score is ${rightAnswer} of ${hardQ.length}<br>Thank you !!!`)
+      selectH3.insertAdjacentHTML('beforeend', `Your final score is ${rightAnswer} of ${howManyQ}<br>Thank you !!!`)
 }
 
 //---------------------------FIRST SCREEN--------------------------------------
@@ -729,59 +768,58 @@ function firstScreen(){
           selectDiv.insertAdjacentHTML('beforeend', `
             <h2></h2>
             <div class="buttons">
+            </div>
+            <div id="divSelect">
+              <br>
+              <label for="manyQ">How Many Questions?</label>
+              <select name="manyQ" id="manyQ">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+              </select>
             </div>`)
       let selectH2 = document.querySelector('h2')
       selectH2.insertAdjacentHTML('beforeend', `Play mode:`)
       let selectP1 = document.querySelector('.buttons')
-      selectP1.insertAdjacentHTML('beforeend', `<button class="btnEasy" onclick="btnFirstEasy()">Easy</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btnHard" onclick="btnFirstHard()">Hard</button>`)
+      selectP1.insertAdjacentHTML('beforeend', `<button class="btnEasy" onclick="btnFirstEasy()">Easy</button><button class="btnHard" onclick="btnFirstHard()">Hard</button>`)
     }
   }
 
 //---------------------------BUTTON EASY--------------------------------------
 
   function btnFirstEasy(){
-      let btn2 = document.querySelector(".btnEasy")
-      btn2.onclick = function(){
+    howManyQ = document.querySelector("select").value
+    document.querySelector("#divSelect").remove()    
+    
         if (nextQ <easyQ.length)
-        // insertBox();
         unorderedDifficultyEasy();
         insertQuestionsEasy();
-      }
+      
     }
 
 //---------------------------BUTTON HARD--------------------------------------
 
   function btnFirstHard(){
-      let btn2 = document.querySelector(".btnHard")
-      btn2.onclick = function(){
+    howManyQ = document.querySelector("select").value
+    document.querySelector("#divSelect").remove()  
         if (nextQ <hardQ.length)
-        // insertBoxHard();
         unorderedDifficultyHard();
         insertQuestionsHard();
-      }
+      
     }
 
 //---------------------------CALLING FUNCTIONS--------------------------------------
 
 kindOfQuestions();
 firstScreen();
-btnFirstEasy();
-btnFirstHard();
+// btnFirstEasy();
+// btnFirstHard();
 insertBox()
 insertBoxHard()
 unorderedDifficultyEasy();
 unorderedDifficultyHard();
 insertEasyCorrectQuestions();
 insertHardCorrectQuestions();
-btn1();
-btn2();
-btn3();
-btn4();
-btn1Hard();
-btn2Hard();
-btn3Hard();
-btn4Hard();
-
   </script>
 </body>
 </html>
